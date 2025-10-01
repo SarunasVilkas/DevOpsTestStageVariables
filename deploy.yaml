@@ -8,6 +8,8 @@ parameters:
 stages:
 - stage: Deploy_${{ parameters.environmentName }}
   dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    artifactPath: $[ stageDependencies.Build.BuildJob.outputs['setPath.artifactPath'] ]
   jobs:
   - deployment: DeployTo${{ parameters.environmentName }}
     environment: ${{ parameters.environmentName }}
@@ -18,3 +20,4 @@ stages:
           - script: |
               echo "Deploying to ${{ parameters.environmentName }}"
               echo "Artifact path: $(artifactPath)"
+
