@@ -1,0 +1,27 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+# 1. Build Stage
+- template: build.yaml
+
+# 2. Deploy Dev Stage
+- template: deploy.yaml
+  parameters:
+    environmentName: dev
+    dependsOn:
+    - Build
+  variables:
+    artifactPath: $[ stageDependencies.Build.BuildJob.outputs['setPath.artifactPath'] ]
+
+# 3. Deploy QA Stage (manual approval could happen here)
+- template: deploy.yaml
+  parameters:
+    environmentName: qa
+    dependsOn:
+    - Build
+  variables:
+    artifactPath: $[ stageDependencies.Build.BuildJob.outputs['setPath.artifactPath'] ]

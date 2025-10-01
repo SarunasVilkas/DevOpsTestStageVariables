@@ -1,0 +1,8 @@
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: |
+        echo "##vso[task.setvariable variable=artifactPath;isOutput=true]/drop/$(Build.BuildId)"
+      name: setPath
