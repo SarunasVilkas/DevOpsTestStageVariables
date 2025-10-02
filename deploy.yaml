@@ -22,7 +22,7 @@ stages:
   - job: ForwardVariable
     steps:
     - script: |
-         echo "##vso[task.setvariable variable=artifactPath;isOutput=true]/drop/$(Build.BuildId)"
+         echo "##vso[task.setvariable variable=artifactPath;isOutput=true]/$(artifactPath)"
       name: forwardSetPath
 
 
