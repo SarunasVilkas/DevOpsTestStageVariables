@@ -1,13 +1,9 @@
 parameters:
 - name: environmentName
   type: string
-- name: dependsOn
-  type: object
-  default: []
 
 stages:
 - stage: Deploy_${{ parameters.environmentName }}
-  dependsOn: ${{ parameters.dependsOn }}
   variables:
     artifactPath: $[ stageDependencies.Build.BuildJob.outputs['setPath.artifactPath'] ]
   jobs:

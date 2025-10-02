@@ -5,20 +5,14 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-# 1. Build
+
 - template: build.yaml
 
-# 2. Deploy Dev
 - template: deploy.yaml
   parameters:
     environmentName: dev
-    dependsOn:
-    - Build
 
-# 3. Deploy QA (can have manual approval)
 - template: deploy.yaml
   parameters:
     environmentName: qa
-    dependsOn:
-    - Build
 
